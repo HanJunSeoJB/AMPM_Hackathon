@@ -6,7 +6,8 @@
 3. 필터링 하고 싶은 키워드를 입력한다. (예: 타자소리)
 4. 편집점 생성하기 버튼을 누른다.
 5. 타임라인을 확인한다.
- 첨부파일 테스트영상
+ 
+ ### 첨부파일 테스트영상
 
 # 모델 실행 방법 colab 파일 및 링크 확인
 https://colab.research.google.com/drive/1HmKUVo8ehW3CnVWOKQcPf8tEMau4jCxQ?usp=sharing
