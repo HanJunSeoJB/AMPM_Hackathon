@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wavy flag</title>
+    <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+<h1>영상 편집점 생성기</h1>
+<form onsubmit="fetchPredefinedImages(event)">
+    <label for="videoFile">파일업로드</label>
+    <input type="file" id="videoFile" name="videoFile" accept="video/*" required />
+    <input type="text" id="textField" name="textField" placeholder="필터링 할 키워드를 입력해주세요"/>
+    <input type="submit" value="편집점 가져오기" />
+</form>
+<video id="videoPlayer" width="600" controls>
+    <!-- 사용자가 업로드한 동영상이 여기에 표시됩니다. -->
+</video>
+<ul id="result"></ul>
+
+<script>
+    async function fetchPredefinedImages(event) {
+        event.preventDefault();
+
+        const result = document.getElementById("result");
+        result.innerHTML = ''; // Reset the result container
+
+        const videoPlayer = document.getElementById('videoPlayer');
+        const videoFile = document.getElementById('videoFile').files[0];
+        if (videoFile) {
+            const objectURL = URL.createObjectURL(videoFile);
+            videoPlayer.src = objectURL;
+        }
+
+        // 5개의 미리 정의된 이미지와 타임스탬프 데이터 (이 부분은 실제 데이터로 바꿔야 합니다)
+        const predefinedData = [
+            { timestamp: "00:00:01", url: "/images/1.jpg" },
+            { timestamp: "00:00:06", url: "/images/6.jpg" },
+            { timestamp: "00:00:18", url: "/images/18.jpg" },
+            { timestamp: "00:00:25", url: "/images/25.jpg" },
+            { timestamp: "00:00:32", url: "/images/32.jpg" }
+        ];
+
+        predefinedData.forEach(item => {
+            const li = document.createElement('li');
+            
+            const img = document.createElement('img');
+            img.src = item.url;
+            img.alt = `Image at ${item.timestamp}`;
+            img.title = `Image at ${item.timestamp}`;
+            li.appendChild(img);
+            
+            const span = document.createElement('span');
+            
+            span.textContent = item.timestamp;
+            span.style.cursor = 'pointer';
+            span.addEventListener('click', () => {
+                const timestamp = item.timestamp.split(':'); 
+                const seconds = (+timestamp[0]) * 60 * 60 + (+timestamp[1]) * 60 + (+timestamp[2]);
+                videoPlayer.currentTime = seconds;
+            });
+            li.appendChild(span);
+
+            result.appendChild(li);
+        });
+    }
+</script>
+</body>
+</html>
